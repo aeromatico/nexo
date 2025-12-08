@@ -175,7 +175,7 @@ def create_tenant(tenant_name, admin_email, admin_password):
 
 ### 1. Frontend (Nginx)
 
-**Puerto**: 8080 (HTTP), 443 (HTTPS en producción)
+**Puerto**: 8765 (HTTP), 443 (HTTPS en producción)
 
 Responsabilidades:
 - Reverse proxy a backend Frappe
@@ -189,7 +189,7 @@ Responsabilidades:
 Configuración:
 ```nginx
 server {
-    listen 8080;
+    listen 8765;
     server_name *.nexo.bo;
 
     location / {

@@ -96,7 +96,7 @@
 
 ```
 nexo/
-├── frontend (Nginx)         # Puerto 8080
+├── frontend (Nginx)         # Puerto 8765
 ├── backend (Frappe)         # Puerto 8000
 ├── socketio                 # Puerto 9000
 ├── mariadb                  # Puerto 3306
@@ -176,7 +176,7 @@ docker-compose exec backend bench new-site nexo.local \
 docker-compose exec backend bench use nexo.local
 
 # 8. Acceder a la aplicación
-# http://localhost:8080
+# http://localhost:8765
 # Usuario: Administrator
 # Contraseña: admin
 ```
