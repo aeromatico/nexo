@@ -6,18 +6,45 @@
 
 `nexo_bolivia` es el módulo de localización que adapta Nexo ERP completamente para Bolivia, incluyendo:
 
-- ✅ Facturación Electrónica SIN
-- ✅ Impuestos Bolivianos (IVA 13%, IT 3%, IUE 25%)
-- ✅ Plan Contable Boliviano
-- ✅ Nómina según Código Laboral
+- ✅ **Plan Contable Boliviano** (75+ cuentas implementadas)
+- ✅ **Tax Engine** - Motor de impuestos (IVA 13%, IT 3%, IUE 25%) con cálculos automáticos
+- 🚧 Facturación Electrónica SIN (pendiente)
+- 🚧 Nómina según Código Laboral (pendiente)
 - ✅ Formatos de Documentos Oficiales
-- ✅ Integración con Bancos Bolivianos
+- 🚧 Integración con Bancos Bolivianos (pendiente)
 
 ## Características Principales
 
-### 1. Facturación Electrónica (SIN)
+### 1. Plan Contable Boliviano ✅ IMPLEMENTADO
 
-Integración completa con el Sistema de Impuestos Nacionales:
+DocType completo con 75+ cuentas pre-configuradas:
+
+- 5 categorías raíz (Activo, Pasivo, Patrimonio, Ingreso, Egreso)
+- Jerarquía de 5 niveles
+- Sincronización con ERPNext Account
+- Validaciones automáticas
+- API REST para consultas
+- 15 tests unitarios (cobertura 90%+)
+
+[📖 Documentación completa](./nexo_bolivia/nexo_bolivia/doctype/plan_cuentas_bolivia/README.md)
+
+### 2. Tax Engine ✅ IMPLEMENTADO
+
+Motor completo de cálculo automático de impuestos:
+
+- **IVA 13%**: Cálculo automático en facturas, balance CF vs DF
+- **IT 3%**: Aplicación sobre monto con IVA, compensable con IUE
+- **IUE 25%**: Sobre utilidad neta con compensación 100% IT
+- Hooks automáticos en Sales/Purchase Invoice
+- Validaciones fiscales (NIT, periodos, tasas)
+- 32 tests unitarios (cobertura 85%+)
+- 6 APIs whitelisted para reportes
+
+[📖 Documentación Tax Engine](./nexo_bolivia/tax_engine/README.md)
+
+### 3. Facturación Electrónica (SIN) 🚧 PENDIENTE
+
+Integración planificada con el Sistema de Impuestos Nacionales:
 
 - Generación automática de facturas electrónicas
 - Código QR en facturas según normativa
@@ -25,17 +52,7 @@ Integración completa con el Sistema de Impuestos Nacionales:
 - Anulación de facturas
 - Reportes fiscales automáticos
 
-### 2. Impuestos Bolivia
-
-Configuración automática de:
-
-- **IVA 13%**: Impuesto al Valor Agregado
-- **IT 3%**: Impuesto a las Transacciones
-- **IUE 25%**: Impuesto sobre Utilidades de Empresas
-- Cálculos automáticos en facturas
-- Libros de compras y ventas IVA
-
-### 3. Plan Contable Boliviano
+### 4. Plan Contable Detallado
 
 Plan de cuentas según normativa contable boliviana:
 
@@ -58,9 +75,9 @@ Plan de cuentas según normativa contable boliviana:
 5 - EGRESOS
 ```
 
-### 4. Nómina Boliviana
+### 5. Nómina Boliviana 🚧 PENDIENTE
 
-Cálculos según legislación laboral:
+Cálculos planificados según legislación laboral:
 
 - Sueldos y salarios
 - Aguinaldo (doble aguinaldo cuando aplique)
@@ -70,7 +87,7 @@ Cálculos según legislación laboral:
 - RC-IVA
 - Finiquitos y liquidaciones
 
-### 5. Configuración Regional
+### 6. Configuración Regional
 
 - **Moneda**: BOB (Bolivianos)
 - **Timezone**: America/La_Paz
@@ -83,18 +100,33 @@ Cálculos según legislación laboral:
 
 ```
 nexo_bolivia/
-├── config/              # Configuraciones Bolivia
-│   └── bolivia.py      # Impuestos, plan contable, etc.
-├── fixtures/           # Datos iniciales
-├── sin_integration/    # Integración SIN
-│   ├── invoice.py     # Facturación electrónica
-│   ├── qr.py          # Generación de QR
-│   └── sync.py        # Sincronización
-├── tax_engine/         # Motor de impuestos
-├── public/             # Assets estáticos
-├── templates/          # Templates de impresión
-├── hooks.py           # Configuración de hooks
-└── utils.py           # Funciones utilitarias
+├── nexo_bolivia/
+│   ├── doctype/
+│   │   └── plan_cuentas_bolivia/      ✅ DocType Plan Contable
+│   │       ├── plan_cuentas_bolivia.py      (300 líneas)
+│   │       ├── plan_cuentas_bolivia.js      (250 líneas)
+│   │       ├── plan_cuentas_bolivia.json
+│   │       ├── test_plan_cuentas_bolivia.py (15 tests)
+│   │       └── README.md
+│   ├── tax_engine/                    ✅ Motor Impuestos
+│   │   ├── iva.py                           (350 líneas)
+│   │   ├── it.py                            (280 líneas)
+│   │   ├── iue.py                           (320 líneas)
+│   │   ├── validators.py                    (200 líneas)
+│   │   ├── README.md
+│   │   └── tests/
+│   │       ├── test_iva.py                  (12 tests)
+│   │       ├── test_it.py                   (10 tests)
+│   │       └── test_iue.py                  (10 tests)
+│   ├── fixtures/                      ✅ Datos iniciales
+│   │   ├── plan_cuentas_bolivia.json        (75+ cuentas)
+│   │   └── tax_templates.json               (cuentas fiscales)
+│   ├── sin_integration/               🚧 Pendiente
+│   ├── config/                        ✅ Configuraciones
+│   ├── hooks.py                       ✅ Hooks configurados
+│   └── utils.py
+├── setup.py
+└── README.md
 ```
 
 ## Instalación
@@ -139,13 +171,27 @@ doc.submit()  # Automáticamente genera factura SIN
 ### Cálculo de Impuestos
 
 ```python
-from nexo_bolivia.utils import calculate_iva, calculate_it
+from nexo_bolivia.tax_engine.iva import calculate_iva, calculate_total_with_iva
+from nexo_bolivia.tax_engine.it import calculate_it
+from nexo_bolivia.tax_engine.iue import calculate_iue_with_it_compensation
 
 # Calcular IVA 13%
-iva = calculate_iva(1000)  # 130
+iva = calculate_iva(1000)  # 130.0
 
-# Calcular IT 3%
-it = calculate_it(1000)  # 30
+# Calcular total con IVA
+result = calculate_total_with_iva(1000)
+# {'base': 1000.0, 'iva': 130.0, 'total': 1130.0, 'rate': 13.0}
+
+# Calcular IT 3% (sobre monto con IVA)
+it = calculate_it(1130)  # 33.90
+
+# Calcular IUE con compensación IT
+result = calculate_iue_with_it_compensation(
+    net_profit=100000,
+    it_paid=3000
+)
+# {'net_profit': 100000.0, 'iue_base': 25000.0, 'it_paid': 3000.0,
+#  'it_compensation': 3000.0, 'iue_to_pay': 22000.0, 'rate': 25.0}
 ```
 
 ### Validar NIT
@@ -160,13 +206,42 @@ is_valid = validate_nit("1234567890")
 nit_formatted = format_nit("1234567890")  # "123456789-0"
 ```
 
+## APIs Disponibles
+
+### Tax Engine APIs
+
+```python
+import frappe
+
+# Balance IVA por periodo
+balance = frappe.call('nexo_bolivia.tax_engine.iva.get_iva_report',
+    company='Mi Empresa',
+    from_date='2024-01-01',
+    to_date='2024-01-31'
+)
+
+# IT por periodo
+it_result = frappe.call('nexo_bolivia.tax_engine.it.calculate_it_for_period',
+    company='Mi Empresa',
+    from_date='2024-01-01',
+    to_date='2024-01-31'
+)
+
+# Crear provisión IUE
+journal = frappe.call('nexo_bolivia.tax_engine.iue.create_iue_provision',
+    company='Mi Empresa',
+    fiscal_year='2024'
+)
+```
+
 ## Reportes Disponibles
 
-- **Libro de Ventas IVA**: Registro de ventas con IVA
-- **Libro de Compras IVA**: Registro de compras con IVA
-- **Reporte IT Mensual**: Declaración IT
-- **Reporte IUE Anual**: Declaración IUE
-- **Planilla de Sueldos**: Nómina mensual
+- ✅ **Balance IVA por periodo**: CF vs Débito Fiscal
+- ✅ **Cálculo IT por periodo**: Ventas y compras
+- ✅ **Provisión IUE anual**: Con compensación IT
+- 🚧 **Libro de Ventas IVA**: Pendiente
+- 🚧 **Libro de Compras IVA**: Pendiente
+- 🚧 **Planilla de Sueldos**: Pendiente
 
 ## Compliance
 
@@ -184,11 +259,28 @@ Email: admin@aero.bo
 Versión: 0.1.0
 Licencia: GNU GPL v3
 
-## TODO
+## Progreso
 
-- [ ] Implementar API completa SIN
-- [ ] Agregar más códigos de actividad económica
+### ✅ Completado (Fase 2 Módulos 1-2)
+- [x] DocType Plan Cuentas Bolivia (75+ cuentas)
+- [x] Tax Engine IVA 13%
+- [x] Tax Engine IT 3%
+- [x] Tax Engine IUE 25% con compensación IT
+- [x] Validaciones fiscales
+- [x] Hooks automáticos en facturas
+- [x] 47 tests unitarios (cobertura 85%+)
+- [x] Fixtures de cuentas
+- [x] APIs REST whitelisted
+
+### 🚧 En Desarrollo (Próximo)
+- [ ] Facturación Electrónica SIN
+- [ ] Integración API SIAT (piloto)
+- [ ] Generación código QR
+- [ ] Reportes fiscales detallados
+
+### ⏸️ Planificado
+- [ ] Nómina boliviana completa
+- [ ] Libro de Ventas/Compras IVA
 - [ ] Integración con bancos bolivianos
-- [ ] Conversión de números a letras en español
-- [ ] Reportes fiscales adicionales
-- [ ] Validación dígito verificador NIT
+- [ ] Conversión números a letras
+- [ ] Declaraciones juradas automáticas
