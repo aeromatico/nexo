@@ -1,0 +1,42 @@
+[
+  {
+    "doctype": "Account",
+    "account_name": "IVA por Pagar",
+    "parent_account": "Deudas Fiscales - Company",
+    "is_group": 0,
+    "root_type": "Liability",
+    "account_type": "Tax",
+    "account_number": "2121",
+    "account_currency": "BOB"
+  },
+  {
+    "doctype": "Account",
+    "account_name": "IVA Crédito Fiscal",
+    "parent_account": "Créditos Fiscales - Company",
+    "is_group": 0,
+    "root_type": "Asset",
+    "account_type": "Tax",
+    "account_number": "1141",
+    "account_currency": "BOB"
+  },
+  {
+    "doctype": "Account",
+    "account_name": "IT por Pagar",
+    "parent_account": "Deudas Fiscales - Company",
+    "is_group": 0,
+    "root_type": "Liability",
+    "account_type": "Tax",
+    "account_number": "2122",
+    "account_currency": "BOB"
+  },
+  {
+    "doctype": "Account",
+    "account_name": "IUE por Pagar",
+    "parent_account": "Deudas Fiscales - Company",
+    "is_group": 0,
+    "root_type": "Liability",
+    "account_type": "Tax",
+    "account_number": "2123",
+    "account_currency": "BOB"
+  }
+]

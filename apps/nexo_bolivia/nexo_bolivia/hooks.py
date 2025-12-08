@@ -32,29 +32,37 @@ default_regional_settings = {
 # ---------------
 doc_events = {
     "Sales Invoice": {
-        "before_submit": "nexo_bolivia.sin_integration.invoice.generate_sin_invoice",
-        "on_submit": "nexo_bolivia.sin_integration.invoice.send_to_sin",
-        "on_cancel": "nexo_bolivia.sin_integration.invoice.cancel_sin_invoice",
+        "validate": [
+            "nexo_bolivia.tax_engine.validators.validate_invoice_for_bolivia",
+            "nexo_bolivia.tax_engine.iva.apply_iva_to_invoice",
+            "nexo_bolivia.tax_engine.it.apply_it_to_invoice",
+        ],
+        # SIN Integration (pendiente implementación)
+        # "before_submit": "nexo_bolivia.sin_integration.invoice.generate_sin_invoice",
+        # "on_submit": "nexo_bolivia.sin_integration.invoice.send_to_sin",
+        # "on_cancel": "nexo_bolivia.sin_integration.invoice.cancel_sin_invoice",
     },
     "Purchase Invoice": {
-        "validate": "nexo_bolivia.tax_engine.validate_purchase_taxes",
+        "validate": [
+            "nexo_bolivia.tax_engine.validators.validate_invoice_for_bolivia",
+            "nexo_bolivia.tax_engine.iva.apply_iva_to_invoice",
+        ],
     },
     "Payment Entry": {
-        "on_submit": "nexo_bolivia.tax_engine.apply_it_tax",
+        "on_submit": "nexo_bolivia.tax_engine.it.apply_it_to_payment",
     },
 }
 
 # Scheduled Tasks
 # ---------------
-scheduler_events = {
-    "daily": [
-        "nexo_bolivia.sin_integration.sync.sync_sin_status",
-        "nexo_bolivia.tax_engine.calculate_daily_it",
-    ],
-    "monthly": [
-        "nexo_bolivia.reports.generate_monthly_tax_report",
-    ],
-}
+# scheduler_events = {
+#     "daily": [
+#         # "nexo_bolivia.sin_integration.sync.sync_sin_status",  # Pendiente SIN
+#     ],
+#     "monthly": [
+#         # "nexo_bolivia.reports.generate_monthly_tax_report",  # Pendiente reportes
+#     ],
+# }
 
 # Fixtures
 # --------
