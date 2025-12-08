@@ -1,0 +1,191 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:account_number",
+ "creation": "2024-12-08 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "account_number",
+  "account_name",
+  "column_break_3",
+  "account_type",
+  "is_group",
+  "section_break_6",
+  "parent_account",
+  "root_type",
+  "column_break_9",
+  "company",
+  "disabled",
+  "section_break_12",
+  "description",
+  "section_break_14",
+  "balance_must_be",
+  "account_currency",
+  "column_break_17",
+  "freeze_account",
+  "include_in_gross"
+ ],
+ "fields": [
+  {
+   "fieldname": "account_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "N\u00famero de Cuenta",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "account_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nombre de Cuenta",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "account_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Tipo de Cuenta",
+   "options": "Activo\nPasivo\nPatrimonio\nIngreso\nEgreso\nCosto de Ventas\nGasto Operacional"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Es Grupo"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Jerarqu\u00eda"
+  },
+  {
+   "fieldname": "parent_account",
+   "fieldtype": "Link",
+   "label": "Cuenta Padre",
+   "options": "Plan Cuentas Bolivia"
+  },
+  {
+   "fieldname": "root_type",
+   "fieldtype": "Select",
+   "label": "Tipo Ra\u00edz",
+   "options": "\nActivo\nPasivo\nPatrimonio\nIngreso\nEgreso"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Empresa",
+   "options": "Company"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Deshabilitada"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break",
+   "label": "Detalles"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Descripci\u00f3n"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break",
+   "label": "Configuraci\u00f3n Contable"
+  },
+  {
+   "fieldname": "balance_must_be",
+   "fieldtype": "Select",
+   "label": "Saldo Debe Ser",
+   "options": "\nD\u00e9bito\nCr\u00e9dito"
+  },
+  {
+   "default": "BOB",
+   "fieldname": "account_currency",
+   "fieldtype": "Link",
+   "label": "Moneda",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "freeze_account",
+   "fieldtype": "Check",
+   "label": "Congelar Cuenta"
+  },
+  {
+   "default": "0",
+   "fieldname": "include_in_gross",
+   "fieldtype": "Check",
+   "label": "Incluir en Bruto"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 0,
+ "links": [],
+ "modified": "2024-12-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Nexo Bolivia",
+ "name": "Plan Cuentas Bolivia",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "account_name",
+ "track_changes": 1
+}

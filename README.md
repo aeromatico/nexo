@@ -125,15 +125,18 @@ nexo/
 ### 2. nexo_bolivia
 **Localización para Bolivia**
 
-- ✅ Facturación electrónica SIN
-- ✅ Impuestos: IVA 13%, IT 3%, IUE 25%
-- ✅ Plan contable boliviano
-- ✅ Nómina según código laboral
+- ✅ **Plan Contable Boliviano** (75+ cuentas implementadas)
+- ✅ Impuestos: IVA 13%, IT 3%, IUE 25% (cuentas listas)
+- 🚧 Facturación electrónica SIN (en desarrollo)
+- 🚧 Nómina según código laboral (pendiente)
 - ✅ Formatos de documentos oficiales
 - ✅ 9 departamentos de Bolivia
 - ✅ Días festivos Bolivia
 
-[📖 Documentación nexo_bolivia](./apps/nexo_bolivia/README.md)
+**Módulos implementados:**
+- `Plan Cuentas Bolivia` - DocType con 75+ cuentas, validaciones y sincronización ERPNext
+
+[📖 Documentación nexo_bolivia](./apps/nexo_bolivia/README.md) | [📊 Plan Contable](./apps/nexo_bolivia/nexo_bolivia/nexo_bolivia/doctype/plan_cuentas_bolivia/README.md)
 
 ---
 
