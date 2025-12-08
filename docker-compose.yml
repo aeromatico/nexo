@@ -1,0 +1,183 @@
+version: '3.8'
+
+# Nexo ERP - Docker Compose Configuration
+# Author: Aero
+# Multi-tenant Frappe/ERPNext SaaS Platform
+
+services:
+  # Backend - Frappe Framework
+  backend:
+    image: frappe/erpnext:v15.17.2
+    container_name: nexo-backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - ./apps/nexo_core:/home/frappe/frappe-bench/apps/nexo_core:rw
+      - ./apps/nexo_bolivia:/home/frappe/frappe-bench/apps/nexo_bolivia:rw
+      - sites:/home/frappe/frappe-bench/sites:rw
+      - logs:/home/frappe/frappe-bench/logs:rw
+    networks:
+      - nexo-network
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - REDIS_CACHE=redis-cache:6379
+      - REDIS_QUEUE=redis-queue:6379
+      - REDIS_SOCKETIO=redis-socketio:6379
+      - SOCKETIO_PORT=9000
+    depends_on:
+      - mariadb
+      - redis-cache
+      - redis-queue
+      - redis-socketio
+
+  # Frontend - Nginx Reverse Proxy
+  frontend:
+    image: frappe/erpnext:v15.17.2
+    container_name: nexo-frontend
+    command:
+      - nginx-entrypoint.sh
+    environment:
+      - BACKEND=backend:8000
+      - SOCKETIO=backend:9000
+      - FRAPPE_SITE_NAME_HEADER=$$host
+      - UPSTREAM_REAL_IP_ADDRESS=127.0.0.1
+      - UPSTREAM_REAL_IP_HEADER=X-Forwarded-For
+      - UPSTREAM_REAL_IP_RECURSIVE=off
+      - PROXY_READ_TIMEOUT=120
+      - CLIENT_MAX_BODY_SIZE=50m
+    ports:
+      - "8080:8080"
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites:rw
+      - logs:/home/frappe/frappe-bench/logs:rw
+    networks:
+      - nexo-network
+    depends_on:
+      - backend
+
+  # Database - MariaDB
+  mariadb:
+    image: mariadb:10.6
+    container_name: nexo-mariadb
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-nexo_admin_2024}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - nexo-network
+    ports:
+      - "3306:3306"
+
+  # Redis Cache
+  redis-cache:
+    image: redis:7-alpine
+    container_name: nexo-redis-cache
+    volumes:
+      - redis-cache-data:/data
+    networks:
+      - nexo-network
+
+  # Redis Queue
+  redis-queue:
+    image: redis:7-alpine
+    container_name: nexo-redis-queue
+    volumes:
+      - redis-queue-data:/data
+    networks:
+      - nexo-network
+
+  # Redis SocketIO
+  redis-socketio:
+    image: redis:7-alpine
+    container_name: nexo-redis-socketio
+    volumes:
+      - redis-socketio-data:/data
+    networks:
+      - nexo-network
+
+  # Queue Worker (Background Jobs)
+  queue-worker:
+    image: frappe/erpnext:v15.17.2
+    container_name: nexo-queue-worker
+    command:
+      - bench
+      - worker
+      - --queue
+      - default,long,short
+    volumes:
+      - ./apps/nexo_core:/home/frappe/frappe-bench/apps/nexo_core:rw
+      - ./apps/nexo_bolivia:/home/frappe/frappe-bench/apps/nexo_bolivia:rw
+      - sites:/home/frappe/frappe-bench/sites:rw
+      - logs:/home/frappe/frappe-bench/logs:rw
+    networks:
+      - nexo-network
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - REDIS_CACHE=redis-cache:6379
+      - REDIS_QUEUE=redis-queue:6379
+      - REDIS_SOCKETIO=redis-socketio:6379
+    depends_on:
+      - backend
+      - mariadb
+      - redis-queue
+
+  # Scheduler (Cron Jobs)
+  scheduler:
+    image: frappe/erpnext:v15.17.2
+    container_name: nexo-scheduler
+    command:
+      - bench
+      - schedule
+    volumes:
+      - ./apps/nexo_core:/home/frappe/frappe-bench/apps/nexo_core:rw
+      - ./apps/nexo_bolivia:/home/frappe/frappe-bench/apps/nexo_bolivia:rw
+      - sites:/home/frappe/frappe-bench/sites:rw
+      - logs:/home/frappe/frappe-bench/logs:rw
+    networks:
+      - nexo-network
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - REDIS_CACHE=redis-cache:6379
+      - REDIS_QUEUE=redis-queue:6379
+      - REDIS_SOCKETIO=redis-socketio:6379
+    depends_on:
+      - backend
+      - mariadb
+
+  # SocketIO Server (Real-time)
+  socketio:
+    image: frappe/erpnext:v15.17.2
+    container_name: nexo-socketio
+    command:
+      - node
+      - /home/frappe/frappe-bench/apps/frappe/socketio.js
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites:rw
+      - logs:/home/frappe/frappe-bench/logs:rw
+    networks:
+      - nexo-network
+    environment:
+      - REDIS_SOCKETIO=redis-socketio:6379
+    depends_on:
+      - redis-socketio
+
+volumes:
+  mariadb-data:
+  redis-cache-data:
+  redis-queue-data:
+  redis-socketio-data:
+  sites:
+  logs:
+
+networks:
+  nexo-network:
+    driver: bridge

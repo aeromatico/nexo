@@ -1,0 +1,65 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:10.6
+        env:
+          MYSQL_ROOT_PASSWORD: test_password
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install frappe-bench
+        bench init --skip-redis-config-generation frappe-bench
+        cd frappe-bench
+        bench get-app erpnext
+
+    - name: Install Nexo apps
+      run: |
+        cd frappe-bench
+        bench get-app ../apps/nexo_core
+        bench get-app ../apps/nexo_bolivia
+
+    - name: Create test site
+      run: |
+        cd frappe-bench
+        bench new-site test_site --admin-password admin --db-root-password test_password
+        bench --site test_site install-app erpnext
+        bench --site test_site install-app nexo_core
+        bench --site test_site install-app nexo_bolivia
+
+    - name: Run tests
+      run: |
+        cd frappe-bench
+        bench --site test_site run-tests --app nexo_core
+        bench --site test_site run-tests --app nexo_bolivia
