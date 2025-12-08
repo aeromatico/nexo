@@ -127,7 +127,7 @@ nexo/
 
 - ✅ **Plan Contable Boliviano** (75+ cuentas implementadas)
 - ✅ **Tax Engine**: IVA 13%, IT 3%, IUE 25% (cálculos automáticos, hooks y validaciones)
-- 🚧 Facturación electrónica SIN (pendiente)
+- ✅ **Facturación Electrónica SIN**: Integración completa con SIAT (CUF, QR, sincronización, contingencia)
 - 🚧 Nómina según código laboral (pendiente)
 - ✅ Formatos de documentos oficiales
 - ✅ 9 departamentos de Bolivia
@@ -136,8 +136,9 @@ nexo/
 **Módulos implementados:**
 - `Plan Cuentas Bolivia` - DocType con 75+ cuentas, validaciones y sincronización ERPNext
 - `Tax Engine` - Motor de cálculo automático de impuestos (IVA, IT, IUE) con hooks en facturas
+- `SIN Integration` - Facturación electrónica SIAT con QR, sincronización y modo contingencia
 
-[📖 Documentación nexo_bolivia](./apps/nexo_bolivia/README.md) | [📊 Plan Contable](./apps/nexo_bolivia/nexo_bolivia/nexo_bolivia/doctype/plan_cuentas_bolivia/README.md) | [💰 Tax Engine](./apps/nexo_bolivia/nexo_bolivia/tax_engine/README.md)
+[📖 Documentación nexo_bolivia](./apps/nexo_bolivia/README.md) | [📊 Plan Contable](./apps/nexo_bolivia/nexo_bolivia/nexo_bolivia/doctype/plan_cuentas_bolivia/README.md) | [💰 Tax Engine](./apps/nexo_bolivia/nexo_bolivia/tax_engine/README.md) | [📄 SIN Integration](./apps/nexo_bolivia/nexo_bolivia/sin_integration/README.md)
 
 ---
 
