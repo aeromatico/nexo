@@ -37,10 +37,9 @@ doc_events = {
             "nexo_bolivia.tax_engine.iva.apply_iva_to_invoice",
             "nexo_bolivia.tax_engine.it.apply_it_to_invoice",
         ],
-        # SIN Integration (pendiente implementación)
-        # "before_submit": "nexo_bolivia.sin_integration.invoice.generate_sin_invoice",
-        # "on_submit": "nexo_bolivia.sin_integration.invoice.send_to_sin",
-        # "on_cancel": "nexo_bolivia.sin_integration.invoice.cancel_sin_invoice",
+        # SIN Integration - Facturación Electrónica
+        "on_submit": "nexo_bolivia.sin_integration.hooks.on_submit_sales_invoice",
+        "on_cancel": "nexo_bolivia.sin_integration.hooks.on_cancel_sales_invoice",
     },
     "Purchase Invoice": {
         "validate": [
@@ -55,14 +54,18 @@ doc_events = {
 
 # Scheduled Tasks
 # ---------------
-# scheduler_events = {
-#     "daily": [
-#         # "nexo_bolivia.sin_integration.sync.sync_sin_status",  # Pendiente SIN
-#     ],
-#     "monthly": [
-#         # "nexo_bolivia.reports.generate_monthly_tax_report",  # Pendiente reportes
-#     ],
-# }
+scheduler_events = {
+    "daily": [
+        "nexo_bolivia.sin_integration.hooks.daily_cufd_renewal",  # Renovar CUFD diariamente
+        "nexo_bolivia.sin_integration.hooks.sync_pending_invoices",  # Sincronizar facturas pendientes
+    ],
+    "hourly": [
+        "nexo_bolivia.sin_integration.hooks.check_siat_connection",  # Verificar conexión SIAT cada hora
+    ],
+    # "monthly": [
+    #     # "nexo_bolivia.reports.generate_monthly_tax_report",  # Pendiente reportes
+    # ],
+}
 
 # Fixtures
 # --------
