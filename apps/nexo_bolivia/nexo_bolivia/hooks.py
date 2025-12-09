@@ -50,6 +50,21 @@ doc_events = {
     "Payment Entry": {
         "on_submit": "nexo_bolivia.tax_engine.it.apply_it_to_payment",
     },
+    # Payroll - Nómina Bolivia
+    "Salary Slip": {
+        "validate": [
+            "nexo_bolivia.payroll.validators.validate_salary_slip_bolivia",
+            "nexo_bolivia.payroll.validators.validate_salary_slip_dates",
+            "nexo_bolivia.payroll.afp.apply_afp_to_salary_slip",
+            "nexo_bolivia.payroll.validators.validate_afp_in_salary_slip",
+        ],
+    },
+    "Employee": {
+        "validate": [
+            "nexo_bolivia.payroll.validators.validate_employee_nit",
+            "nexo_bolivia.payroll.validators.validate_salary_increase",
+        ],
+    },
 }
 
 # Scheduled Tasks
@@ -62,9 +77,9 @@ scheduler_events = {
     "hourly": [
         "nexo_bolivia.sin_integration.hooks.check_siat_connection",  # Verificar conexión SIAT cada hora
     ],
-    # "monthly": [
-    #     # "nexo_bolivia.reports.generate_monthly_tax_report",  # Pendiente reportes
-    # ],
+    "monthly": [
+        "nexo_bolivia.payroll.aguinaldo.check_aguinaldo_payment",  # Verificar pago de aguinaldo (21 Jun, 21 Dic)
+    ],
 }
 
 # Fixtures
