@@ -1,0 +1,31 @@
+{
+  "docstatus": 0,
+  "doctype": "Report",
+  "idx": 0,
+  "is_standard": "No",
+  "letter_head": "Standard",
+  "modified": "2024-12-09 05:00:00.000000",
+  "name": "Reporte RC-IVA",
+  "owner": "Administrator",
+  "prepared_report": 0,
+  "query_report": 0,
+  "ref_doctype": "Salary Slip",
+  "report_name": "Reporte RC-IVA",
+  "report_type": "Script Report",
+  "roles": [
+    {
+      "role": "HR Manager",
+      "doctype": "Has Role"
+    },
+    {
+      "role": "HR User",
+      "doctype": "Has Role"
+    },
+    {
+      "role": "System Manager",
+      "doctype": "Has Role"
+    }
+  ],
+  "disabled": 0,
+  "module": "Nexo Bolivia"
+}

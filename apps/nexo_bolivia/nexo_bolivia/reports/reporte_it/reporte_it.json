@@ -1,0 +1,27 @@
+{
+  "docstatus": 0,
+  "doctype": "Report",
+  "idx": 0,
+  "is_standard": "No",
+  "letter_head": "Standard",
+  "modified": "2024-12-09 05:00:00.000000",
+  "name": "Reporte IT Mensual",
+  "owner": "Administrator",
+  "prepared_report": 0,
+  "query_report": 0,
+  "ref_doctype": "Sales Invoice",
+  "report_name": "Reporte IT Mensual",
+  "report_type": "Script Report",
+  "roles": [
+    {
+      "role": "Accounts Manager",
+      "doctype": "Has Role"
+    },
+    {
+      "role": "System Manager",
+      "doctype": "Has Role"
+    }
+  ],
+  "disabled": 0,
+  "module": "Nexo Bolivia"
+}

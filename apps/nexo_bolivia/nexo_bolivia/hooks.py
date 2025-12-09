@@ -38,13 +38,19 @@ doc_events = {
             "nexo_bolivia.tax_engine.it.apply_it_to_invoice",
         ],
         # SIN Integration - Facturación Electrónica
-        "on_submit": "nexo_bolivia.sin_integration.hooks.on_submit_sales_invoice",
+        "on_submit": [
+            "nexo_bolivia.sin_integration.hooks.on_submit_sales_invoice",
+            "nexo_bolivia.reports.audit.audit_trail.log_sales_invoice_submit",  # Auditoría
+        ],
         "on_cancel": "nexo_bolivia.sin_integration.hooks.on_cancel_sales_invoice",
     },
     "Purchase Invoice": {
         "validate": [
             "nexo_bolivia.tax_engine.validators.validate_invoice_for_bolivia",
             "nexo_bolivia.tax_engine.iva.apply_iva_to_invoice",
+        ],
+        "on_submit": [
+            "nexo_bolivia.reports.audit.audit_trail.log_purchase_invoice_submit",  # Auditoría
         ],
     },
     "Payment Entry": {
@@ -73,6 +79,7 @@ scheduler_events = {
     "daily": [
         "nexo_bolivia.sin_integration.hooks.daily_cufd_renewal",  # Renovar CUFD diariamente
         "nexo_bolivia.sin_integration.hooks.sync_pending_invoices",  # Sincronizar facturas pendientes
+        "nexo_bolivia.reports.audit.compliance_checker.run_daily_compliance_check",  # Verificar compliance diariamente
     ],
     "hourly": [
         "nexo_bolivia.sin_integration.hooks.check_siat_connection",  # Verificar conexión SIAT cada hora
@@ -140,12 +147,12 @@ website_route_rules = [
 regional_overrides = {
     "Bolivia": {
         "erpnext.regional.report.gstr_1.gstr_1.execute":
-            "nexo_bolivia.reports.libro_ventas_iva.execute",
+            "nexo_bolivia.reports.libro_ventas_iva.libro_ventas_iva.execute",
         "erpnext.regional.report.gstr_2.gstr_2.execute":
-            "nexo_bolivia.reports.libro_compras_iva.execute",
+            "nexo_bolivia.reports.libro_compras_iva.libro_compras_iva.execute",
     }
 }
 
 # API Whitelist
 # -------------
-# Endpoints para integración SIN
+# Endpoints para integración SIN y Compliance

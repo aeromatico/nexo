@@ -1,0 +1,33 @@
+{
+  "docstatus": 0,
+  "doctype": "Report",
+  "idx": 0,
+  "is_standard": "No",
+  "letter_head": "Standard",
+  "modified": "2024-12-09 05:00:00.000000",
+  "name": "Libro de Ventas IVA",
+  "owner": "Administrator",
+  "prepared_report": 0,
+  "query_report": 0,
+  "ref_doctype": "Sales Invoice",
+  "report_name": "Libro de Ventas IVA",
+  "report_type": "Script Report",
+  "roles": [
+    {
+      "role": "Accounts Manager",
+      "doctype": "Has Role"
+    },
+    {
+      "role": "Accounts User",
+      "doctype": "Has Role"
+    },
+    {
+      "role": "System Manager",
+      "doctype": "Has Role"
+    }
+  ],
+  "script": "frappe.listview_settings['Sales Invoice'] = {\n    collapseTitle: true,\n    get_indicator: function(doc) {\n        if(doc.docstatus==0) {\n            return [__(\"Draft\"), \"red\"];\n        }\n        if(doc.docstatus==1) {\n            return [__(\"Submitted\"), \"green\"];\n        }\n    }\n};",
+  "disabled": 0,
+  "module": "Nexo Bolivia",
+  "is_standard": "No"
+}
