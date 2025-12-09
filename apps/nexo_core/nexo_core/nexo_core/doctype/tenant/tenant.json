@@ -1,0 +1,195 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:subdomain",
+ "creation": "2024-12-09 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tenant_name",
+  "subdomain",
+  "custom_domain",
+  "column_break_3",
+  "company_name",
+  "nit",
+  "section_break_5",
+  "admin_email",
+  "admin_password",
+  "column_break_8",
+  "status",
+  "trial_end_date",
+  "section_break_10",
+  "subscription_plan",
+  "site_name",
+  "column_break_13",
+  "created_at",
+  "activated_at",
+  "section_break_16",
+  "apps_installed",
+  "section_break_18",
+  "description",
+  "amendments_section"
+ ],
+ "fields": [
+  {
+   "fieldname": "tenant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nombre del Tenant",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "subdomain",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Subdominio",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "custom_domain",
+   "fieldtype": "Data",
+   "label": "Dominio Personalizado"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Nombre Empresa",
+   "reqd": 1
+  },
+  {
+   "fieldname": "nit",
+   "fieldtype": "Data",
+   "label": "NIT Empresa",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break",
+   "label": "Credenciales"
+  },
+  {
+   "fieldname": "admin_email",
+   "fieldtype": "Email",
+   "label": "Email Administrador",
+   "reqd": 1
+  },
+  {
+   "fieldname": "admin_password",
+   "fieldtype": "Password",
+   "label": "Contraseña Administrador"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Estado",
+   "options": "Trial\nActive\nSuspended\nCancelled",
+   "default": "Trial"
+  },
+  {
+   "fieldname": "trial_end_date",
+   "fieldtype": "Date",
+   "label": "Fecha Fin Trial"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break",
+   "label": "Suscripción"
+  },
+  {
+   "fieldname": "subscription_plan",
+   "fieldtype": "Link",
+   "label": "Plan de Suscripción",
+   "options": "Subscription Plan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "site_name",
+   "fieldtype": "Data",
+   "label": "Nombre del Site Frappe",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Datetime",
+   "label": "Creado en",
+   "read_only": 1
+  },
+  {
+   "fieldname": "activated_at",
+   "fieldtype": "Datetime",
+   "label": "Activado en",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break",
+   "label": "Apps Instaladas"
+  },
+  {
+   "fieldname": "apps_installed",
+   "fieldtype": "Table",
+   "label": "Apps",
+   "options": "Tenant App"
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break",
+   "label": "Observaciones"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Descripción"
+  },
+  {
+   "fieldname": "amendments_section",
+   "fieldtype": "Section Break",
+   "label": "Enmiendas"
+  }
+ ],
+ "icon": "icon-cloud",
+ "in_create": 1,
+ "modified": "2024-12-09 13:55:00.000000",
+ "modified_by": "Administrator",
+ "module": "Nexo Core",
+ "name": "Tenant",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 0,
+   "cancel": 0,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 0,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -21,13 +21,12 @@ required_apps = ["frappe", "erpnext"]
 # --------
 # Document Events
 # ---------------
-# doc_events = {
-#     "*": {
-#         "on_update": "method",
-#         "on_cancel": "method",
-#         "on_trash": "method"
-#     }
-# }
+doc_events = {
+    "Tenant": {
+        "after_insert": "nexo_core.provisioning.site_creator.provision_tenant_site",
+        "on_trash": "nexo_core.provisioning.site_creator.cleanup_tenant_site",
+    },
+}
 
 # Scheduled Tasks
 # ---------------
@@ -35,9 +34,13 @@ scheduler_events = {
     "daily": [
         "nexo_core.tasks.daily.cleanup_expired_sessions",
         "nexo_core.tasks.daily.update_tenant_metrics",
+        "nexo_core.doctype.tenant_usage.tenant_usage.collect_metrics",
     ],
     "hourly": [
         "nexo_core.tasks.hourly.check_tenant_quotas",
+    ],
+    "weekly": [
+        "nexo_core.provisioning.site_creator.cleanup_old_backups",
     ],
 }
 

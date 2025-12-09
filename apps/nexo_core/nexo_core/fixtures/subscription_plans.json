@@ -1,0 +1,44 @@
+[
+  {
+    "doctype": "Subscription Plan",
+    "plan_name": "Basic",
+    "max_users": 5,
+    "max_storage_gb": 1,
+    "max_sites": 1,
+    "price_monthly": 29,
+    "price_annual": 290,
+    "currency": "BOB",
+    "billing_cycle": "Mensual",
+    "is_active": 1,
+    "features": "{\"invoicing\": true, \"inventory\": false, \"payroll\": false, \"accounting\": true, \"custom_apps\": false, \"api_access\": true, \"storage_quota\": true, \"user_limit\": true}",
+    "description": "Plan básico ideal para emprendimientos y pequeñas empresas. Incluye facturación e contabilidad básica."
+  },
+  {
+    "doctype": "Subscription Plan",
+    "plan_name": "Professional",
+    "max_users": 15,
+    "max_storage_gb": 5,
+    "max_sites": 2,
+    "price_monthly": 79,
+    "price_annual": 790,
+    "currency": "BOB",
+    "billing_cycle": "Mensual",
+    "is_active": 1,
+    "features": "{\"invoicing\": true, \"inventory\": true, \"payroll\": true, \"accounting\": true, \"custom_apps\": false, \"api_access\": true, \"storage_quota\": true, \"user_limit\": true, \"sin_integration\": true}",
+    "description": "Plan profesional para empresas en crecimiento. Incluye inventario, nómina y facturación electrónica SIN."
+  },
+  {
+    "doctype": "Subscription Plan",
+    "plan_name": "Enterprise",
+    "max_users": 9999,
+    "max_storage_gb": 20,
+    "max_sites": 10,
+    "price_monthly": 199,
+    "price_annual": 1990,
+    "currency": "BOB",
+    "billing_cycle": "Mensual",
+    "is_active": 1,
+    "features": "{\"invoicing\": true, \"inventory\": true, \"payroll\": true, \"accounting\": true, \"custom_apps\": true, \"api_access\": true, \"storage_quota\": true, \"user_limit\": false, \"sin_integration\": true, \"white_label\": true, \"priority_support\": true}",
+    "description": "Plan empresarial para grandes organizaciones. Acceso ilimitado a usuarios, apps personalizadas y soporte prioritario."
+  }
+]

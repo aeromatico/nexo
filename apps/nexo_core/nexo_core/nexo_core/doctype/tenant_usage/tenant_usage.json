@@ -1,0 +1,129 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "Autoincrement",
+ "creation": "2024-12-09 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "tenant",
+  "date",
+  "column_break_2",
+  "active_users",
+  "storage_used_mb",
+  "section_break_5",
+  "database_size_mb",
+  "api_calls",
+  "column_break_8",
+  "email_sent",
+  "invoices_generated",
+  "section_break_11",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "tenant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tenant",
+   "options": "Tenant",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Fecha",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "active_users",
+   "fieldtype": "Int",
+   "label": "Usuarios Activos",
+   "default": 0
+  },
+  {
+   "fieldname": "storage_used_mb",
+   "fieldtype": "Float",
+   "label": "Almacenamiento Usado (MB)",
+   "default": 0
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break",
+   "label": "Recursos"
+  },
+  {
+   "fieldname": "database_size_mb",
+   "fieldtype": "Float",
+   "label": "Tamaño Base de Datos (MB)",
+   "default": 0
+  },
+  {
+   "fieldname": "api_calls",
+   "fieldtype": "Int",
+   "label": "Llamadas API",
+   "default": 0
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_sent",
+   "fieldtype": "Int",
+   "label": "Emails Enviados",
+   "default": 0
+  },
+  {
+   "fieldname": "invoices_generated",
+   "fieldtype": "Int",
+   "label": "Facturas Generadas",
+   "default": 0
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break",
+   "label": "Observaciones"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notas"
+  }
+ ],
+ "icon": "icon-bar-chart",
+ "in_create": 1,
+ "modified": "2024-12-09 13:55:00.000000",
+ "modified_by": "Administrator",
+ "module": "Nexo Core",
+ "name": "Tenant Usage",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 0,
+   "cancel": 0,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 0,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
