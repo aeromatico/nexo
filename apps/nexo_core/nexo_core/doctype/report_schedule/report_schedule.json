@@ -1,0 +1,135 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "hash",
+  "creation": "2025-12-11 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "report",
+    "frequency",
+    "column_break_1",
+    "day_of_week",
+    "day_of_month",
+    "time",
+    "section_break_recipients",
+    "recipients",
+    "section_break_options",
+    "format",
+    "enabled",
+    "section_break_tracking",
+    "last_run",
+    "next_run"
+  ],
+  "fields": [
+    {
+      "fieldname": "report",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Report",
+      "options": "Report",
+      "reqd": 1
+    },
+    {
+      "fieldname": "frequency",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Frequency",
+      "options": "Daily\nWeekly\nMonthly\nQuarterly\nYearly",
+      "reqd": 1
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "day_of_week",
+      "fieldtype": "Select",
+      "label": "Day of Week",
+      "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+      "help": "For weekly frequency"
+    },
+    {
+      "fieldname": "day_of_month",
+      "fieldtype": "Int",
+      "label": "Day of Month",
+      "help": "For monthly/quarterly/yearly frequency (1-31)"
+    },
+    {
+      "default": "08:00:00",
+      "fieldname": "time",
+      "fieldtype": "Time",
+      "label": "Execution Time"
+    },
+    {
+      "fieldname": "section_break_recipients",
+      "fieldtype": "Section Break",
+      "label": "Recipients"
+    },
+    {
+      "fieldname": "recipients",
+      "fieldtype": "Small Text",
+      "label": "Recipients (Email)",
+      "help": "Comma-separated email addresses"
+    },
+    {
+      "fieldname": "section_break_options",
+      "fieldtype": "Section Break",
+      "label": "Options"
+    },
+    {
+      "default": "Excel",
+      "fieldname": "format",
+      "fieldtype": "Select",
+      "label": "Export Format",
+      "options": "Excel\nPDF\nCSV\nJSON"
+    },
+    {
+      "default": "1",
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled"
+    },
+    {
+      "fieldname": "section_break_tracking",
+      "fieldtype": "Section Break",
+      "label": "Tracking"
+    },
+    {
+      "fieldname": "last_run",
+      "fieldtype": "Datetime",
+      "label": "Last Run",
+      "read_only": 1
+    },
+    {
+      "fieldname": "next_run",
+      "fieldtype": "Datetime",
+      "label": "Next Run",
+      "read_only": 1
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "modified": "2025-12-11 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Nexo Core",
+  "name": "Report Schedule",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "read": 1,
+      "role": "System Manager",
+      "write": 1
+    },
+    {
+      "read": 1,
+      "role": "All"
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}

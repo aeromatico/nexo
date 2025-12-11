@@ -1,0 +1,134 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "field:report_name",
+  "creation": "2025-12-11 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "report_name",
+    "report_type",
+    "module",
+    "column_break_1",
+    "reference_doctype",
+    "is_standard",
+    "section_break_query",
+    "query",
+    "section_break_script",
+    "script",
+    "section_break_columns",
+    "columns",
+    "section_break_filters",
+    "filters"
+  ],
+  "fields": [
+    {
+      "fieldname": "report_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Report Name",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "report_type",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Report Type",
+      "options": "Query\nScript\nCustom",
+      "reqd": 1
+    },
+    {
+      "fieldname": "module",
+      "fieldtype": "Link",
+      "label": "Module",
+      "options": "Module"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "reference_doctype",
+      "fieldtype": "Link",
+      "label": "Reference DocType",
+      "options": "DocType"
+    },
+    {
+      "default": "0",
+      "fieldname": "is_standard",
+      "fieldtype": "Check",
+      "label": "Is Standard Report"
+    },
+    {
+      "fieldname": "section_break_query",
+      "fieldtype": "Section Break",
+      "label": "Query (SQL)"
+    },
+    {
+      "fieldname": "query",
+      "fieldtype": "Code",
+      "label": "SQL Query",
+      "options": "sql"
+    },
+    {
+      "fieldname": "section_break_script",
+      "fieldtype": "Section Break",
+      "label": "Script (Python)"
+    },
+    {
+      "fieldname": "script",
+      "fieldtype": "Code",
+      "label": "Python Script",
+      "options": "python"
+    },
+    {
+      "fieldname": "section_break_columns",
+      "fieldtype": "Section Break",
+      "label": "Columns Configuration"
+    },
+    {
+      "fieldname": "columns",
+      "fieldtype": "JSON",
+      "label": "Columns (JSON)",
+      "help": "[{\"fieldname\": \"name\", \"label\": \"Name\", \"fieldtype\": \"Data\", \"width\": 200}]"
+    },
+    {
+      "fieldname": "section_break_filters",
+      "fieldtype": "Section Break",
+      "label": "Default Filters"
+    },
+    {
+      "fieldname": "filters",
+      "fieldtype": "JSON",
+      "label": "Filters (JSON)",
+      "help": "[{\"field\": \"company\", \"operator\": \"=\", \"value\": \"ABC Company\"}]"
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "modified": "2025-12-11 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Nexo Core",
+  "name": "Custom Report",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "read": 1,
+      "role": "System Manager",
+      "write": 1
+    },
+    {
+      "create": 1,
+      "read": 1,
+      "role": "Analyst",
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}

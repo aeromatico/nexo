@@ -1,0 +1,156 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "field:kpi_name",
+  "creation": "2025-12-11 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "kpi_name",
+    "category",
+    "column_break_1",
+    "calculation_method",
+    "target_value",
+    "comparison_period",
+    "section_break_source",
+    "source_doctype",
+    "field_to_aggregate",
+    "section_break_filters",
+    "filters",
+    "section_break_custom",
+    "custom_script",
+    "section_break_alerts",
+    "alert_on_threshold",
+    "threshold_value",
+    "threshold_type"
+  ],
+  "fields": [
+    {
+      "fieldname": "kpi_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "KPI Name",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "category",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Category",
+      "options": "Financial\nSales\nInventory\nHR\nOperations\nCustom",
+      "reqd": 1
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "calculation_method",
+      "fieldtype": "Select",
+      "label": "Calculation Method",
+      "options": "Sum\nAverage\nCount\nMax\nMin\nCustom",
+      "reqd": 1
+    },
+    {
+      "fieldname": "target_value",
+      "fieldtype": "Float",
+      "label": "Target Value"
+    },
+    {
+      "default": "Month",
+      "fieldname": "comparison_period",
+      "fieldtype": "Select",
+      "label": "Comparison Period",
+      "options": "Day\nWeek\nMonth\nQuarter\nYear"
+    },
+    {
+      "fieldname": "section_break_source",
+      "fieldtype": "Section Break",
+      "label": "Data Source"
+    },
+    {
+      "fieldname": "source_doctype",
+      "fieldtype": "Link",
+      "label": "Source DocType",
+      "options": "DocType"
+    },
+    {
+      "fieldname": "field_to_aggregate",
+      "fieldtype": "Data",
+      "label": "Field to Aggregate",
+      "help": "Field name to sum, average, etc."
+    },
+    {
+      "fieldname": "section_break_filters",
+      "fieldtype": "Section Break",
+      "label": "Filters"
+    },
+    {
+      "fieldname": "filters",
+      "fieldtype": "JSON",
+      "label": "Filters (JSON)",
+      "help": "[{\"field\": \"company\", \"operator\": \"=\", \"value\": \"ABC Company\"}]"
+    },
+    {
+      "fieldname": "section_break_custom",
+      "fieldtype": "Section Break",
+      "label": "Custom Calculation"
+    },
+    {
+      "fieldname": "custom_script",
+      "fieldtype": "Code",
+      "label": "Custom Script (Python)",
+      "options": "python",
+      "help": "def calculate_kpi(company, period_start, period_end):\n    # Your calculation logic\n    return value"
+    },
+    {
+      "fieldname": "section_break_alerts",
+      "fieldtype": "Section Break",
+      "label": "Alert Configuration"
+    },
+    {
+      "default": "0",
+      "fieldname": "alert_on_threshold",
+      "fieldtype": "Check",
+      "label": "Alert on Threshold"
+    },
+    {
+      "fieldname": "threshold_value",
+      "fieldtype": "Float",
+      "label": "Threshold Value"
+    },
+    {
+      "fieldname": "threshold_type",
+      "fieldtype": "Select",
+      "label": "Threshold Type",
+      "options": "Above\nBelow\nEqual"
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "modified": "2025-12-11 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Nexo Core",
+  "name": "KPI Definition",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "read": 1,
+      "role": "System Manager",
+      "write": 1
+    },
+    {
+      "create": 1,
+      "read": 1,
+      "role": "Analyst",
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}

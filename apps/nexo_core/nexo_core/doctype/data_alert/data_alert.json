@@ -1,0 +1,121 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "field:alert_name",
+  "creation": "2025-12-11 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "alert_name",
+    "alert_type",
+    "column_break_1",
+    "document_type",
+    "enabled",
+    "section_break_condition",
+    "condition",
+    "section_break_notification",
+    "notification_method",
+    "recipients",
+    "section_break_tracking",
+    "last_triggered"
+  ],
+  "fields": [
+    {
+      "fieldname": "alert_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Alert Name",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "alert_type",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Alert Type",
+      "options": "Stock Low\nInvoice Overdue\nSales Target\nCustom",
+      "reqd": 1
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "document_type",
+      "fieldtype": "Link",
+      "label": "Document Type",
+      "options": "DocType"
+    },
+    {
+      "default": "1",
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled"
+    },
+    {
+      "fieldname": "section_break_condition",
+      "fieldtype": "Section Break",
+      "label": "Condition"
+    },
+    {
+      "fieldname": "condition",
+      "fieldtype": "JSON",
+      "label": "Condition (JSON)",
+      "help": "{\"field\": \"stock_qty\", \"operator\": \"<\", \"value\": 10}",
+      "reqd": 1
+    },
+    {
+      "fieldname": "section_break_notification",
+      "fieldtype": "Section Break",
+      "label": "Notification"
+    },
+    {
+      "default": "Email",
+      "fieldname": "notification_method",
+      "fieldtype": "Select",
+      "label": "Notification Method",
+      "options": "Email\nSMS\nIn-App\nAll"
+    },
+    {
+      "fieldname": "recipients",
+      "fieldtype": "Table",
+      "label": "Recipients",
+      "options": "Alert Recipient"
+    },
+    {
+      "fieldname": "section_break_tracking",
+      "fieldtype": "Section Break",
+      "label": "Tracking"
+    },
+    {
+      "fieldname": "last_triggered",
+      "fieldtype": "Datetime",
+      "label": "Last Triggered",
+      "read_only": 1
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "modified": "2025-12-11 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Nexo Core",
+  "name": "Data Alert",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "read": 1,
+      "role": "System Manager",
+      "write": 1
+    },
+    {
+      "read": 1,
+      "role": "All"
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}

@@ -39,13 +39,23 @@ scheduler_events = {
         "nexo_core.tasks.daily.update_tenant_metrics",
         "nexo_core.doctype.tenant_usage.tenant_usage.collect_metrics",
         "nexo_core.ecommerce.orders.check_pending_orders",
+        # Fase 6 - Analytics & BI
+        "nexo_core.analytics.kpi_engine.KPIEngine.check_kpi_alerts",
+        "nexo_core.reports.scheduler.execute_scheduled_reports",
+        "nexo_core.data_warehouse.aggregator.aggregate_sales_data",
     ],
     "hourly": [
         "nexo_core.tasks.hourly.check_tenant_quotas",
         "nexo_core.ecommerce.payment_gateways.qr_simple.verify_pending_payments",
+        # Fase 6 - Analytics & BI
+        "nexo_core.analytics.alerts.check_all_alerts",
     ],
     "weekly": [
         "nexo_core.provisioning.site_creator.cleanup_old_backups",
+    ],
+    "monthly": [
+        # Fase 6 - Analytics & BI
+        "nexo_core.data_warehouse.aggregator.aggregate_financial_data",
     ],
 }
 
