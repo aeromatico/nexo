@@ -1,0 +1,51 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "invoices": "Facturas",
+    "orders": "Pedidos",
+    "payments": "Pagos",
+    "support": "Soporte",
+    "profile": "Perfil",
+    "settings": "Configuración"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "email_placeholder": "tu@email.com",
+    "password_placeholder": "Tu contraseña",
+    "logging_in": "Iniciando sesión...",
+    "login_failed": "Error al iniciar sesión",
+    "welcome_message": "Bienvenido al Portal del Cliente",
+    "need_help": "¿Necesitas ayuda?",
+    "contact_support": "Contactar soporte"
+  },
+  "dashboard": {
+    "total_purchases": "Total Compras",
+    "pending_orders": "Pedidos Pendientes",
+    "pending_invoices": "Facturas Pendientes",
+    "open_tickets": "Soporte Abierto",
+    "recent_invoices": "Facturas Recientes"
+  },
+  "filters": {
+    "all": "Todas",
+    "draft": "Borrador",
+    "submitted": "Enviado",
+    "paid": "Pagado",
+    "cancelled": "Cancelado"
+  },
+  "common": {
+    "view_all": "Ver todas",
+    "no_data": "Sin datos",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  },
+  "errors": {
+    "failed_to_load": "Falló al cargar los datos"
+  }
+}

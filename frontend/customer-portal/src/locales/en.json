@@ -1,0 +1,51 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "invoices": "Invoices",
+    "orders": "Orders",
+    "payments": "Payments",
+    "support": "Support",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "email_placeholder": "your@email.com",
+    "password_placeholder": "Your password",
+    "logging_in": "Logging in...",
+    "login_failed": "Login failed",
+    "welcome_message": "Welcome to Customer Portal",
+    "need_help": "Need help?",
+    "contact_support": "Contact Support"
+  },
+  "dashboard": {
+    "total_purchases": "Total Purchases",
+    "pending_orders": "Pending Orders",
+    "pending_invoices": "Pending Invoices",
+    "open_tickets": "Open Tickets",
+    "recent_invoices": "Recent Invoices"
+  },
+  "filters": {
+    "all": "All",
+    "draft": "Draft",
+    "submitted": "Submitted",
+    "paid": "Paid",
+    "cancelled": "Cancelled"
+  },
+  "common": {
+    "view_all": "View All",
+    "no_data": "No Data",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "errors": {
+    "failed_to_load": "Failed to load data"
+  }
+}
