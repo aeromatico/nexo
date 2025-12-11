@@ -1,0 +1,303 @@
+{
+ "actions": [],
+ "creation": "2024-12-11T19:50:00.000000",
+ "docstatus": 0,
+ "doctype": "DocType",
+ "document_type": "Other",
+ "engine": "InnoDB",
+ "field_order": [
+  "whatsapp_section",
+  "whatsapp_phone_number_id",
+  "whatsapp_access_token",
+  "whatsapp_test_number",
+  "whatsapp_webhook_token",
+  "stripe_section",
+  "stripe_secret_key",
+  "stripe_publishable_key",
+  "stripe_webhook_secret",
+  "qr_interbank_section",
+  "qr_interbank_url",
+  "qr_interbank_merchant_id",
+  "qr_interbank_api_key",
+  "qr_interbank_test_number",
+  "tigo_money_section",
+  "tigo_money_url",
+  "tigo_money_api_key",
+  "tigo_money_merchant_code",
+  "pagofacil_section",
+  "pagofacil_url",
+  "pagofacil_commerce_id",
+  "pagofacil_api_key",
+  "chilexpress_section",
+  "chilexpress_api_key",
+  "chilexpress_subscriber_id",
+  "blueexpress_section",
+  "blueexpress_api_key",
+  "blueexpress_account_number",
+  "google_drive_section",
+  "google_drive_api_key",
+  "google_drive_folder_id",
+  "dropbox_section",
+  "dropbox_access_token",
+  "aws_section",
+  "aws_access_key",
+  "aws_secret_key",
+  "aws_region",
+  "aws_bucket_name",
+  "sendgrid_section",
+  "sendgrid_api_key",
+  "sendgrid_from_email",
+  "mailchimp_section",
+  "mailchimp_api_key",
+  "mailchimp_list_id",
+  "mailchimp_from_email"
+ ],
+ "fields": [
+  {
+   "fieldname": "whatsapp_section",
+   "fieldtype": "Section Break",
+   "label": "WhatsApp Business API"
+  },
+  {
+   "fieldname": "whatsapp_phone_number_id",
+   "fieldtype": "Data",
+   "label": "Phone Number ID"
+  },
+  {
+   "fieldname": "whatsapp_access_token",
+   "fieldtype": "Password",
+   "label": "Access Token"
+  },
+  {
+   "fieldname": "whatsapp_test_number",
+   "fieldtype": "Data",
+   "label": "Test Number (591...)"
+  },
+  {
+   "fieldname": "whatsapp_webhook_token",
+   "fieldtype": "Data",
+   "label": "Webhook Token"
+  },
+  {
+   "fieldname": "stripe_section",
+   "fieldtype": "Section Break",
+   "label": "Stripe Integration"
+  },
+  {
+   "fieldname": "stripe_secret_key",
+   "fieldtype": "Password",
+   "label": "Secret Key"
+  },
+  {
+   "fieldname": "stripe_publishable_key",
+   "fieldtype": "Data",
+   "label": "Publishable Key"
+  },
+  {
+   "fieldname": "stripe_webhook_secret",
+   "fieldtype": "Password",
+   "label": "Webhook Secret"
+  },
+  {
+   "fieldname": "qr_interbank_section",
+   "fieldtype": "Section Break",
+   "label": "QR Interbank (Bolivia)"
+  },
+  {
+   "fieldname": "qr_interbank_url",
+   "fieldtype": "Data",
+   "label": "API URL"
+  },
+  {
+   "fieldname": "qr_interbank_merchant_id",
+   "fieldtype": "Data",
+   "label": "Merchant ID"
+  },
+  {
+   "fieldname": "qr_interbank_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "qr_interbank_test_number",
+   "fieldtype": "Data",
+   "label": "Test Account"
+  },
+  {
+   "fieldname": "tigo_money_section",
+   "fieldtype": "Section Break",
+   "label": "Tigo Money (Bolivia)"
+  },
+  {
+   "fieldname": "tigo_money_url",
+   "fieldtype": "Data",
+   "label": "API URL"
+  },
+  {
+   "fieldname": "tigo_money_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "tigo_money_merchant_code",
+   "fieldtype": "Data",
+   "label": "Merchant Code"
+  },
+  {
+   "fieldname": "pagofacil_section",
+   "fieldtype": "Section Break",
+   "label": "PagoFácil (Bolivia)"
+  },
+  {
+   "fieldname": "pagofacil_url",
+   "fieldtype": "Data",
+   "label": "API URL"
+  },
+  {
+   "fieldname": "pagofacil_commerce_id",
+   "fieldtype": "Data",
+   "label": "Commerce ID"
+  },
+  {
+   "fieldname": "pagofacil_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "chilexpress_section",
+   "fieldtype": "Section Break",
+   "label": "Chilexpress (Bolivia)"
+  },
+  {
+   "fieldname": "chilexpress_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "chilexpress_subscriber_id",
+   "fieldtype": "Data",
+   "label": "Subscriber ID"
+  },
+  {
+   "fieldname": "blueexpress_section",
+   "fieldtype": "Section Break",
+   "label": "BlueExpress (Bolivia)"
+  },
+  {
+   "fieldname": "blueexpress_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "blueexpress_account_number",
+   "fieldtype": "Data",
+   "label": "Account Number"
+  },
+  {
+   "fieldname": "google_drive_section",
+   "fieldtype": "Section Break",
+   "label": "Google Drive"
+  },
+  {
+   "fieldname": "google_drive_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "google_drive_folder_id",
+   "fieldtype": "Data",
+   "label": "Backup Folder ID"
+  },
+  {
+   "fieldname": "dropbox_section",
+   "fieldtype": "Section Break",
+   "label": "Dropbox"
+  },
+  {
+   "fieldname": "dropbox_access_token",
+   "fieldtype": "Password",
+   "label": "Access Token"
+  },
+  {
+   "fieldname": "aws_section",
+   "fieldtype": "Section Break",
+   "label": "AWS S3"
+  },
+  {
+   "fieldname": "aws_access_key",
+   "fieldtype": "Password",
+   "label": "Access Key ID"
+  },
+  {
+   "fieldname": "aws_secret_key",
+   "fieldtype": "Password",
+   "label": "Secret Access Key"
+  },
+  {
+   "fieldname": "aws_region",
+   "fieldtype": "Data",
+   "label": "Region"
+  },
+  {
+   "fieldname": "aws_bucket_name",
+   "fieldtype": "Data",
+   "label": "Bucket Name"
+  },
+  {
+   "fieldname": "sendgrid_section",
+   "fieldtype": "Section Break",
+   "label": "SendGrid"
+  },
+  {
+   "fieldname": "sendgrid_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "sendgrid_from_email",
+   "fieldtype": "Data",
+   "label": "From Email"
+  },
+  {
+   "fieldname": "mailchimp_section",
+   "fieldtype": "Section Break",
+   "label": "Mailchimp"
+  },
+  {
+   "fieldname": "mailchimp_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "mailchimp_list_id",
+   "fieldtype": "Data",
+   "label": "Default List ID"
+  },
+  {
+   "fieldname": "mailchimp_from_email",
+   "fieldtype": "Data",
+   "label": "From Email"
+  }
+ ],
+ "issingle": 1,
+ "istable": 0,
+ "links": [],
+ "modified": "2024-12-11T19:50:00.000000",
+ "name": "Integration Config",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

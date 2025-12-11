@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "creation": "2024-12-11T19:50:00.000000",
+ "doctype": "DocType",
+ "document_type": "Other",
+ "engine": "InnoDB",
+ "field_order": [
+  "integration",
+  "status",
+  "transaction_id",
+  "reference",
+  "amount",
+  "content",
+  "error",
+  "response_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "integration",
+   "fieldtype": "Select",
+   "label": "Integration",
+   "options": "WhatsApp\nStripe\nQR Interbank\nTigo Money\nPagoFácil\nChilexpress\nBlueExpress\nGoogle Drive\nDropbox\nAWS S3\nSendGrid\nMailchimp\nWebhook",
+   "reqd": 1,
+   "index": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "sent\ntemplate_sent\nreceived\nsuccess\nfailed\npending\npaid\ngenerated\napproved\ncancelled\nrefunded",
+   "reqd": 1,
+   "index": 1
+  },
+  {
+   "fieldname": "transaction_id",
+   "fieldtype": "Data",
+   "label": "Transaction ID",
+   "index": 1
+  },
+  {
+   "fieldname": "reference",
+   "fieldtype": "Data",
+   "label": "Reference (Order/Invoice/etc)",
+   "index": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Long Text",
+   "label": "Content/Message"
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Text",
+   "label": "Error Message"
+  },
+  {
+   "fieldname": "response_time",
+   "fieldtype": "Int",
+   "label": "Response Time (ms)"
+  }
+ ],
+ "links": [],
+ "modified": "2024-12-11T19:50:00.000000",
+ "name": "Integration Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 0
+  },
+  {
+   "read": 1,
+   "role": "All"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

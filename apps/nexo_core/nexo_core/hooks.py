@@ -28,6 +28,20 @@ doc_events = {
     },
     "Online Order": {
         "on_submit": "nexo_core.ecommerce.orders.create_sales_invoice_from_order_hook",
+        "on_submit": "nexo_core.integrations.api_gateway.webhook_manager.on_online_order_submit",
+        "on_update": "nexo_core.integrations.api_gateway.webhook_manager.on_online_order_update",
+        "on_update": "nexo_core.integrations.whatsapp.notifications.notify_order_shipped",
+    },
+    "Sales Invoice": {
+        "on_submit": "nexo_core.integrations.api_gateway.webhook_manager.on_invoice_submit",
+        "on_submit": "nexo_core.integrations.whatsapp.notifications.notify_invoice_created",
+    },
+    "Payment Entry": {
+        "on_submit": "nexo_core.integrations.api_gateway.webhook_manager.on_payment_entry_submit",
+        "on_submit": "nexo_core.integrations.whatsapp.notifications.notify_payment_received",
+    },
+    "Customer": {
+        "on_submit": "nexo_core.integrations.api_gateway.webhook_manager.on_customer_submit",
     },
 }
 
@@ -47,6 +61,8 @@ scheduler_events = {
     "hourly": [
         "nexo_core.tasks.hourly.check_tenant_quotas",
         "nexo_core.ecommerce.payment_gateways.qr_simple.verify_pending_payments",
+        # Fase 9 - Integraciones Externas
+        "nexo_core.integrations.payments.qr_interbank.QRInterbankGateway.check_pending_payments",
         # Fase 6 - Analytics & BI
         "nexo_core.analytics.alerts.check_all_alerts",
     ],

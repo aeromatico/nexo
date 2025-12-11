@@ -1,0 +1,86 @@
+{
+ "actions": [],
+ "creation": "2024-12-11T19:50:00.000000",
+ "doctype": "DocType",
+ "document_type": "Other",
+ "engine": "InnoDB",
+ "field_order": [
+  "api_key",
+  "user",
+  "description",
+  "enabled",
+  "rate_limit",
+  "expires_on",
+  "last_used",
+  "created"
+ ],
+ "fields": [
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Data",
+   "label": "API Key Hash",
+   "unique": 1,
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": 1
+  },
+  {
+   "fieldname": "rate_limit",
+   "fieldtype": "Int",
+   "label": "Rate Limit (requests/hour)",
+   "default": 1000
+  },
+  {
+   "fieldname": "expires_on",
+   "fieldtype": "Date",
+   "label": "Expires On"
+  },
+  {
+   "fieldname": "last_used",
+   "fieldtype": "Datetime",
+   "label": "Last Used",
+   "read_only": 1
+  },
+  {
+   "fieldname": "created",
+   "fieldtype": "Datetime",
+   "label": "Created",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2024-12-11T19:50:00.000000",
+ "name": "API Key",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

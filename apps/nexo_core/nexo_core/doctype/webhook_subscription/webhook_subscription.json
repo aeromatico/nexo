@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "creation": "2024-12-11T19:50:00.000000",
+ "doctype": "DocType",
+ "document_type": "Other",
+ "engine": "InnoDB",
+ "field_order": [
+  "webhook_url",
+  "event",
+  "secret",
+  "enabled",
+  "user",
+  "last_triggered"
+ ],
+ "fields": [
+  {
+   "fieldname": "webhook_url",
+   "fieldtype": "Data",
+   "label": "Webhook URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Select",
+   "label": "Event",
+   "options": "invoice.created\ninvoice.paid\ninvoice.cancelled\norder.created\norder.confirmed\norder.shipped\norder.delivered\norder.cancelled\npayment.received\npayment.failed\ncustomer.created\ncustomer.updated\nproduct.created\nproduct.updated\nproduct.deleted",
+   "reqd": 1
+  },
+  {
+   "fieldname": "secret",
+   "fieldtype": "Password",
+   "label": "Secret (for HMAC signing)"
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_triggered",
+   "fieldtype": "Datetime",
+   "label": "Last Triggered",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2024-12-11T19:50:00.000000",
+ "name": "Webhook Subscription",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
