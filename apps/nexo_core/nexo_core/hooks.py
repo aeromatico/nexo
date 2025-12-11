@@ -26,6 +26,9 @@ doc_events = {
         "after_insert": "nexo_core.provisioning.site_creator.provision_tenant_site",
         "on_trash": "nexo_core.provisioning.site_creator.cleanup_tenant_site",
     },
+    "Online Order": {
+        "on_submit": "nexo_core.ecommerce.orders.create_sales_invoice_from_order_hook",
+    },
 }
 
 # Scheduled Tasks
@@ -35,9 +38,11 @@ scheduler_events = {
         "nexo_core.tasks.daily.cleanup_expired_sessions",
         "nexo_core.tasks.daily.update_tenant_metrics",
         "nexo_core.doctype.tenant_usage.tenant_usage.collect_metrics",
+        "nexo_core.ecommerce.orders.check_pending_orders",
     ],
     "hourly": [
         "nexo_core.tasks.hourly.check_tenant_quotas",
+        "nexo_core.ecommerce.payment_gateways.qr_simple.verify_pending_payments",
     ],
     "weekly": [
         "nexo_core.provisioning.site_creator.cleanup_old_backups",
@@ -48,6 +53,13 @@ scheduler_events = {
 # -------
 website_route_rules = [
     {"from_route": "/tenant/<path:tenant_name>", "to_route": "tenant"},
+    {"from_route": "/shop/<path:item_code>", "to_route": "product_detail"},
+    {"from_route": "/cart", "to_route": "shopping_cart"},
+    {"from_route": "/checkout", "to_route": "checkout"},
+    {"from_route": "/my-account", "to_route": "customer_portal"},
+    {"from_route": "/my-orders", "to_route": "customer_orders"},
+    {"from_route": "/my-invoices", "to_route": "customer_invoices"},
+    {"from_route": "/my-support", "to_route": "customer_support"},
 ]
 
 # Fixtures
