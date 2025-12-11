@@ -1,0 +1,167 @@
+{
+  "dashboard": {
+    "title": "Nexo Application Metrics",
+    "tags": ["nexo", "application"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{job=\"erpnext\"}[5m])",
+            "legendFormat": "{{ status }} - {{ method }} {{ path }}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "rps",
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Response Time (p95)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job=\"erpnext\"}[5m]))",
+            "legendFormat": "{{ path }}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s",
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "HTTP Error Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status=~\"5..\"}[5m])",
+            "legendFormat": "{{ status }} errors"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "rps",
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Active Database Connections",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "mysql_global_status_threads_connected",
+            "legendFormat": "Connected threads"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Database Queries Per Second",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(mysql_global_status_questions[5m])",
+            "legendFormat": "Queries/sec"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "qps",
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Cache Hit Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "redis_keyspace_hits_total / (redis_keyspace_hits_total + redis_keyspace_misses_total) * 100",
+            "legendFormat": "Hit Rate"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Redis Memory Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "redis_memory_used_bytes",
+            "legendFormat": "{{ instance }}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes",
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Queue Depth",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "queue_depth",
+            "legendFormat": "{{ queue }}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Exception Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(exceptions_total{job=\"erpnext\"}[5m])",
+            "legendFormat": "{{ exception_type }}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "rps",
+            "custom": {}
+          }
+        }
+      },
+      {
+        "title": "Document Operations",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(document_operations_total{job=\"erpnext\"}[5m])",
+            "legendFormat": "{{ doctype }} - {{ operation }}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "ops",
+            "custom": {}
+          }
+        }
+      }
+    ]
+  }
+}

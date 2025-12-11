@@ -1,0 +1,164 @@
+# Nexo Alert Rules
+groups:
+  - name: nexo-alerts
+    interval: 30s
+    rules:
+      # Service availability
+      - alert: ServiceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "Service {{ $labels.job }} has been unavailable for more than 2 minutes"
+
+      # Database
+      - alert: DatabaseDown
+        expr: up{job="mariadb"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "MariaDB database is down"
+          description: "Database has been unavailable for more than 1 minute"
+
+      # Redis
+      - alert: RedisDown
+        expr: up{job=~"redis-.*"} == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis {{ $labels.job }} is down"
+          description: "Redis service has been unavailable for more than 2 minutes"
+
+      # High CPU usage
+      - alert: HighCPUUsage
+        expr: (100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is above 80% for more than 5 minutes"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is above 85% for more than 5 minutes"
+
+      # High disk usage
+      - alert: HighDiskUsage
+        expr: node_filesystem_avail_bytes{fstype!~"tmpfs"} / node_filesystem_size_bytes < 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage on {{ $labels.instance }}"
+          description: "Disk usage is above 90% for more than 5 minutes"
+
+      # Database replication lag
+      - alert: DatabaseReplicationLag
+        expr: mysql_slave_lag_seconds > 30
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database replication lag detected"
+          description: "Replication lag is {{ $value }} seconds, threshold is 30 seconds"
+
+      # Slow queries
+      - alert: SlowQueries
+        expr: increase(mysql_global_status_slow_queries[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High number of slow queries detected"
+          description: "{{ $value }} slow queries in the last 5 minutes"
+
+      # High error rate
+      - alert: HighErrorRate
+        expr: rate(mysql_global_status_questions{error="true"}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }} queries per second"
+
+      # API latency
+      - alert: HighAPILatency
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="erpnext"}[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High API latency detected"
+          description: "API response time (p95) is {{ $value }}s"
+
+      # Failed requests
+      - alert: HighHTTPErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High HTTP error rate"
+          description: "5xx error rate is {{ $value }} requests per second"
+
+      # Container restart frequency
+      - alert: FrequentContainerRestarts
+        expr: increase(container_last_seen[5m]) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Container {{ $labels.name }} is restarting frequently"
+          description: "Container has restarted {{ $value }} times in the last 5 minutes"
+
+      # Certificate expiry
+      - alert: CertificateExpiringSoon
+        expr: ssl_certificate_expiry_seconds - time() < 604800  # 7 days
+        for: 1h
+        labels:
+          severity: warning
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "Certificate for {{ $labels.instance }} will expire in {{ $value | humanizeDuration }}"
+
+      # Backup status
+      - alert: BackupFailed
+        expr: backup_status{status="failed"} == 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backup failed"
+          description: "Last backup attempt failed for {{ $labels.instance }}"
+
+      # Disk write errors
+      - alert: DiskWriteErrors
+        expr: increase(node_filesystem_write_errors_total[5m]) > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk write errors detected"
+          description: "{{ $value }} disk write errors in the last 5 minutes"
+
+      # Network errors
+      - alert: NetworkErrors
+        expr: increase(node_network_transmit_errors_total[5m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Network errors detected on {{ $labels.device }}"
+          description: "{{ $value }} network errors in the last 5 minutes"

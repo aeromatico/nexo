@@ -1,0 +1,91 @@
+# Nexo Prometheus Configuration
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    environment: production
+    service: nexo
+
+# Alerting
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - localhost:9093
+
+# Rule files
+rule_files:
+  - 'alert_rules.yml'
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 5s
+
+  # Frappe/ERPNext application metrics
+  - job_name: 'erpnext'
+    static_configs:
+      - targets: ['erpnext:8000']
+    metrics_path: '/api/method/get_metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # MariaDB
+  - job_name: 'mariadb'
+    static_configs:
+      - targets: ['mariadb-exporter:9104']
+    scrape_interval: 30s
+
+  # Redis Cache
+  - job_name: 'redis-cache'
+    static_configs:
+      - targets: ['redis-cache:6379']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # Redis Queue
+  - job_name: 'redis-queue'
+    static_configs:
+      - targets: ['redis-queue:6379']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # Node Exporter (system metrics)
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 30s
+
+  # Nginx
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:80']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Docker stats
+  - job_name: 'docker'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    scrape_interval: 30s
+
+  # Service discovery using file
+  - job_name: 'file-discovery'
+    file_sd_configs:
+      - files:
+          - 'targets.yml'
+        refresh_interval: 30s
+
+# Remote write configuration (optional - for long-term storage)
+# remote_write:
+#   - url: "http://mimir:9009/api/prom/push"
+#     queue_config:
+#       capacity: 10000
+#       max_shards: 200
+#       min_shards: 1
+#       max_samples_per_send: 1000
+#       batch_send_wait: 5s
+#       min_back_off: 30ms
+#       max_back_off: 100ms

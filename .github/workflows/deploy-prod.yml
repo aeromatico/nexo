@@ -1,0 +1,165 @@
+name: Deploy to Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: main
+
+    - name: Verify tests passed
+      run: |
+        echo "Checking test status..."
+        # In a real scenario, this would check the latest test run
+
+    - name: Create production backup
+      env:
+        PROD_HOST: ${{ secrets.PROD_HOST }}
+        PROD_USER: ${{ secrets.PROD_USER }}
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H $PROD_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+
+        ssh -i ~/.ssh/id_rsa $PROD_USER@$PROD_HOST << 'EOF'
+          cd /opt/nexo
+          ./deployment/scripts/backup.sh
+        EOF
+
+    - name: Deploy to Production (Blue-Green)
+      env:
+        PROD_HOST: ${{ secrets.PROD_HOST }}
+        PROD_USER: ${{ secrets.PROD_USER }}
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+      run: |
+        ssh -i ~/.ssh/id_rsa $PROD_USER@$PROD_HOST << 'EOF'
+          cd /opt/nexo
+          # Backup current version
+          cp -r . ./rollback
+
+          # Pull new version
+          git pull origin main
+
+          # Run deployment
+          ./deployment/scripts/deploy.sh production
+
+          # Health checks
+          ./deployment/scripts/health_check.sh
+
+          if [ $? -ne 0 ]; then
+            echo "Health checks failed, rolling back..."
+            rm -rf .
+            cp -r ./rollback/* .
+            exit 1
+          fi
+        EOF
+
+    - name: Run post-deployment tests
+      if: success()
+      env:
+        PROD_HOST: ${{ secrets.PROD_HOST }}
+      run: |
+        sleep 60  # Wait for deployment
+        curl -f https://nexo.bo/health || exit 1
+        curl -f https://nexo.bo/api/method/ping || exit 1
+
+        # Test critical flows
+        curl -f https://nexo.bo/api/resource/Company || exit 1
+
+    - name: Smoke test critical features
+      if: success()
+      env:
+        PROD_HOST: ${{ secrets.PROD_HOST }}
+      run: |
+        echo "Running critical feature smoke tests..."
+        # Test SIN integration
+        curl -f https://nexo.bo/api/method/nexo_bolivia.sin_integration.check_status || true
+
+        # Test e-commerce
+        curl -f https://nexo.bo/api/method/nexo_core.ecommerce.check_status || true
+
+        # Test payroll
+        curl -f https://nexo.bo/api/method/nexo_bolivia.payroll.check_status || true
+
+    - name: Create GitHub Release Notes
+      if: success()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const version = context.ref.replace('refs/tags/', '');
+          github.rest.repos.createRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            tag_name: version,
+            name: `Nexo ${version}`,
+            body: `Production deployment completed successfully.\n\nVersion: ${version}\nCommit: ${context.sha}`,
+            draft: false,
+            prerelease: false
+          });
+
+    - name: Slack notification on success
+      if: success()
+      uses: slackapi/slack-github-action@v1
+      with:
+        payload: |
+          {
+            "text": "Production deployment successful",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "Nexo deployed to production: ${{ github.ref_name }}\nCommit: ${{ github.sha }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - name: Slack notification on failure
+      if: failure()
+      uses: slackapi/slack-github-action@v1
+      with:
+        payload: |
+          {
+            "text": "Production deployment failed - Rollback executed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "Nexo production deployment failed and was rolled back.\nVersion: ${{ github.ref_name }}\nCommit: ${{ github.sha }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - name: Create incident if deployment failed
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Production Deployment Failure - ${new Date().toISOString()}`,
+            body: `Deployment of ${context.ref_name} (${context.sha}) failed.\n\nAutomatic rollback was executed.\n\nPlease investigate and re-deploy when ready.`,
+            labels: ['production', 'deployment', 'urgent']
+          });

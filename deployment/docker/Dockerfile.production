@@ -1,0 +1,35 @@
+FROM frappe/erpnext:v15 as base
+
+LABEL maintainer="Nexo Dev Team"
+LABEL description="Nexo ERP - Frappe-based SaaS platform for Bolivia"
+
+# Install additional dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Nexo apps
+COPY apps/nexo_core /home/frappe/frappe-bench/apps/nexo_core
+COPY apps/nexo_bolivia /home/frappe/frappe-bench/apps/nexo_bolivia
+
+# Install Nexo apps
+WORKDIR /home/frappe/frappe-bench
+RUN bench get-app nexo_core && \
+    bench get-app nexo_bolivia && \
+    bench build
+
+# Set proper permissions
+RUN chown -R frappe:frappe /home/frappe/frappe-bench
+
+# Expose ports
+EXPOSE 8000 8001
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
+    CMD curl -f http://localhost:8000/api/method/ping || exit 1
+
+# Run Frappe
+CMD ["bench", "start"]

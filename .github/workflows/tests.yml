@@ -39,7 +39,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install frappe-bench
+        pip install frappe-bench pytest pytest-cov
         bench init --skip-redis-config-generation frappe-bench
         cd frappe-bench
         bench get-app erpnext
@@ -58,8 +58,44 @@ jobs:
         bench --site test_site install-app nexo_core
         bench --site test_site install-app nexo_bolivia
 
-    - name: Run tests
+    - name: Run unit tests
       run: |
         cd frappe-bench
         bench --site test_site run-tests --app nexo_core
         bench --site test_site run-tests --app nexo_bolivia
+
+    - name: Run E2E tests
+      run: |
+        cd frappe-bench
+        pytest ../tests/e2e/ -v --tb=short
+
+    - name: Run integration tests
+      run: |
+        cd frappe-bench
+        pytest ../tests/integration/ -v --tb=short
+
+    - name: Run performance tests
+      run: |
+        cd frappe-bench
+        pytest ../tests/performance/ -v --tb=short
+
+    - name: Run security tests
+      run: |
+        cd frappe-bench
+        pytest ../tests/security/ -v --tb=short
+
+    - name: Generate coverage report
+      if: always()
+      run: |
+        cd frappe-bench
+        coverage report || true
+        coverage xml || true
+
+    - name: Upload coverage to Codecov
+      if: always()
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./frappe-bench/coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
