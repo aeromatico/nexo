@@ -197,9 +197,20 @@ Si tienes dudas:
 - Enfócate en lo mejor para el proyecto
 - Ayuda a otros cuando puedas
 
+## Recursos Útiles
+
+- [PROGRESS.md](./docs/PROGRESS.md) - Progreso de desarrollo (9 fases)
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md) - Arquitectura del sistema
+- [API_REFERENCE.md](./docs/API_REFERENCE.md) - Referencia de APIs (150+)
+- [INSTALLATION.md](./docs/INSTALLATION.md) - Guía de instalación
+- [CHANGELOG.md](./CHANGELOG.md) - Historial de versiones
+- [README.md](./README.md) - Información general
+
 ## Licencia
 
-Al contribuir, aceptas que tu código sea licenciado bajo GNU GPL v3.
+Al contribuir, aceptas que tu código sea licenciado bajo MIT License.
+
+Ver [LICENSE](./LICENSE) para detalles.
 
 ---
 
